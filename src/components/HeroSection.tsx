@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section
       id="hjem"
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden"
+      className="relative min-h-[100svh] flex flex-col items-center justify-center px-6 pt-20 pb-10 overflow-hidden"
     >
       {/* Lag 1 — grovkornet støj (overlay) */}
       <div
@@ -94,12 +94,12 @@ export default function HeroSection() {
       {/* Indhold */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Hoved-overskrift */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
+        <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] tracking-tight mb-5">
           Videoer der kan mærkes på <span className="text-[#DC2626]">omsætningen.</span>
         </h1>
 
         {/* Undertekst */}
-        <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "rgba(148,163,184,0.8)" }}>
+        <p className="text-base md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed" style={{ color: "rgba(148,163,184,0.8)" }}>
           Vi står for manuskript, redigering og optagelse,<br />så du kan fokusere på det, du er god til.
         </p>
 
@@ -121,31 +121,30 @@ export default function HeroSection() {
       </div>
 
       {/* Statistik-badges nedenfor */}
-      <div className="relative z-10 mt-20 flex flex-wrap justify-center gap-8 text-center">
+      <div className="relative z-10 mt-10 flex flex-wrap justify-center gap-6 text-center">
         {/* Projekter leveret */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold text-white">125+</span>
-          <span className="text-slate-400 text-sm mt-1">Projekter leveret</span>
+          <span className="text-2xl sm:text-3xl font-extrabold text-white">125+</span>
+          <span className="text-slate-400 text-xs sm:text-sm mt-1">Projekter leveret</span>
         </div>
 
         {/* Trustpilot badge */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-3xl font-extrabold text-white">4,8</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white">4,8</span>
           </div>
-          {/* Trustpilot logo-tekst */}
           <div className="flex items-center gap-1">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="#00b67a">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
-            <span className="text-slate-400 text-sm">Trustpilot</span>
+            <span className="text-slate-400 text-xs sm:text-sm">Trustpilot</span>
           </div>
         </div>
 
         {/* Års erfaring */}
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold text-white">11</span>
-          <span className="text-slate-400 text-sm mt-1">Års erfaring</span>
+          <span className="text-2xl sm:text-3xl font-extrabold text-white">11</span>
+          <span className="text-slate-400 text-xs sm:text-sm mt-1">Års erfaring</span>
         </div>
       </div>
 
