@@ -11,6 +11,7 @@ import { useState } from "react";
 type FormData = {
   navn: string;
   virksomhed: string;
+  instagram: string;
   email: string;
   telefon: string;
   besked: string;
@@ -23,8 +24,9 @@ export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     navn: "",
     virksomhed: "",
+    instagram: "",
     email: "",
-    telefon: "",
+    telefon: "+45 ",
     besked: "",
   });
 
@@ -36,7 +38,14 @@ export default function ContactForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (e.target.name === "telefon") {
+      // Behold altid "+45 " præfiks, formater resten som "XX XX XX XX" (max 8 cifre)
+      const digits = e.target.value.replace(/^\+45\s*/, "").replace(/\D/g, "").slice(0, 8);
+      const formatted = digits.match(/.{1,2}/g)?.join(" ") ?? "";
+      setFormData((prev) => ({ ...prev, telefon: "+45 " + formatted }));
+    } else {
+      setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    }
   };
 
   // Send formularen til vores API route
@@ -55,7 +64,7 @@ export default function ContactForm() {
       if (svar.ok) {
         setStatus("success");
         // Nulstil formularen
-        setFormData({ navn: "", virksomhed: "", email: "", telefon: "", besked: "" });
+        setFormData({ navn: "", virksomhed: "", instagram: "", email: "", telefon: "+45 ", besked: "" });
       } else {
         const data = await svar.json();
         setFejlBesked(data.fejl || "Noget gik galt. Prøv igen.");
@@ -78,17 +87,28 @@ export default function ContactForm() {
               Kontakt
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
-              Lad os skabe noget{" "}
-              <span className="text-[#DC2626]">fantastisk</span>{" "}
-              sammen
+              Lad os se om vi er et{" "}
+              <span className="text-[#DC2626]">match</span>
             </h2>
-            <p className="text-slate-400 leading-relaxed mb-8">
+            <p className="leading-relaxed mb-8" style={{ color: "rgba(148,163,184,0.8)" }}>
               Fortæl mig om dit projekt — jo mere du fortæller, jo bedre kan
               jeg hjælpe. Jeg svarer inden for 24 timer på hverdage.
             </p>
 
             <div className="space-y-4">
               {[
+                {
+                  icon: (
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  ),
+                  tekst: "CVR: 46139364",
+                },
+                {
+                  icon: (
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z" />
+                  ),
+                  tekst: "+45 60 53 52 89",
+                },
                 {
                   icon: (
                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -99,7 +119,7 @@ export default function ContactForm() {
                   icon: (
                     <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   ),
-                  tekst: "Danmark",
+                  tekst: "Landsdækkende i hele Danmark",
                 },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-slate-300">
@@ -144,31 +164,27 @@ export default function ContactForm() {
                 <p className="text-slate-400">
                   Tak for din henvendelse. Jeg vender tilbage inden for 24 timer.
                 </p>
-                <button
-                  onClick={() => setStatus("idle")}
-                  className="mt-6 text-[#DC2626] hover:underline text-sm"
-                >
-                  Send en ny besked
-                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Navn og virksomhed side om side */}
+                {/* Navn — fuld bredde */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                    Navn <span className="text-[#DC2626]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="navn"
+                    value={formData.navn}
+                    onChange={handleChange}
+                    required
+                    placeholder="Dit fulde navn"
+                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors text-sm"
+                  />
+                </div>
+
+                {/* Virksomhed og Instagram side om side */}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                      Navn <span className="text-[#DC2626]">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="navn"
-                      value={formData.navn}
-                      onChange={handleChange}
-                      required
-                      placeholder="Dit fulde navn"
-                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors text-sm"
-                    />
-                  </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1.5">
                       Virksomhed
@@ -179,6 +195,19 @@ export default function ContactForm() {
                       value={formData.virksomhed}
                       onChange={handleChange}
                       placeholder="Din virksomhed"
+                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                      Instagram
+                    </label>
+                    <input
+                      type="text"
+                      name="instagram"
+                      value={formData.instagram}
+                      onChange={handleChange}
+                      placeholder="brugernavn"
                       className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors text-sm"
                     />
                   </div>

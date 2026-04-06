@@ -61,14 +61,14 @@
    translate3d(x,0,0) i stedet for translateX — tvinger GPU-acceleration
    og forhindrer browseren i at "optimere" animationen væk */
 @keyframes scroll-left {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .carousel-infinite {
-  animation: scroll-left 40s linear infinite;
-  will-change: transform;          /* fortæller browseren: dette element animerer */
-  backface-visibility: hidden;     /* yderligere GPU-hint */
+  animation: scroll-left 75s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* Always dark theme — override :root to dark values */

@@ -29,36 +29,36 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo — billedet ligger i public/logo.png */}
         <a href="#" className="flex items-center">
           <img
             src="/logo.png"
             alt="JalalVisuals"
-            className="h-10 w-auto object-contain"
+            className="h-8 w-auto object-contain"
           />
         </a>
 
-        {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-slate-300 hover:text-white text-sm font-medium transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA knap (desktop) */}
-        <a
-          href="#kontakt"
-          className="hidden md:inline-flex items-center px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white text-sm font-semibold transition-colors"
-        >
-          Få et tilbud
-        </a>
+        {/* Desktop navigation + CTA */}
+        <div className="hidden md:flex items-center gap-8 ml-auto">
+          <nav className="flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-slate-300 hover:text-white text-sm font-medium transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="#kontakt"
+            className="inline-flex items-center px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white text-sm font-semibold transition-colors"
+          >
+            Få et tilbud
+          </a>
+        </div>
 
         {/* Hamburger menu (mobil) */}
         <button

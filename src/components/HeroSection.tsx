@@ -1,3 +1,100 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+
+// Ease-out expo: starter hurtigt, bremser meget blødt mod slutningen
+function easeOutExpo(t: number): number {
+  return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
+
+function RollingDigit({ digit }: { digit: number }) {
+  return (
+    // Ydre span: clipping-vindue — kun 1 tegn højt, bredde bestemmes af fonten
+    <span
+      aria-hidden="true"
+      style={{
+        display: "inline-block",
+        overflow: "hidden",
+        height: "1.2em",
+        verticalAlign: "middle",
+        fontVariantNumeric: "tabular-nums", // monospaced cifre — ingen sidelæns hop
+      }}
+    >
+      {/* Indre strip: ruller vertikalt via GPU-accelereret transform */}
+      <span
+        style={{
+          display: "block",
+          transform: `translateY(calc(-${digit} * 1.2em))`,
+          transition: "transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)", // smooth decel
+          willChange: "transform", // GPU-layer hint
+        }}
+      >
+        {Array.from({ length: 10 }, (_, d) => (
+          <span key={d} style={{ display: "block", height: "1.2em", lineHeight: "1.2em" }}>
+            {d}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function RollingCounter({ target, duration = 5000 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [done, setDone] = useState(false);
+  const startRef = useRef<number | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const prevRef = useRef(0); // undgår unødvendige re-renders
+
+  useEffect(() => {
+    const animate = (ts: number) => {
+      if (startRef.current === null) startRef.current = ts;
+      const t = Math.min((ts - startRef.current) / duration, 1);
+      const next = Math.round(easeOutExpo(t) * target);
+
+      // Opdater kun state når tallet faktisk ændrer sig
+      if (next !== prevRef.current) {
+        prevRef.current = next;
+        setCount(next);
+      }
+
+      if (t < 1) {
+        frameRef.current = requestAnimationFrame(animate);
+      } else {
+        setDone(true);
+      }
+    };
+    frameRef.current = requestAnimationFrame(animate);
+    return () => { if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); };
+  }, [target, duration]);
+
+  const digits = String(count).padStart(String(target).length, "0").split("").map(Number);
+
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        fontVariantNumeric: "tabular-nums",
+      }}
+    >
+      {/* Visuelle cifre — skjult for skærmlæsere under animation */}
+      {digits.map((digit, i) => (
+        <RollingDigit key={i} digit={digit} />
+      ))}
+      <span aria-hidden="true" style={{ marginLeft: "0.1em" }}>+</span>
+
+      {/* Tilgængelighed: skærmlæser annoncerer det endelige tal når animationen slutter */}
+      <span
+        aria-live="polite"
+        aria-atomic="true"
+        style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}
+      >
+        {done ? `${target}+` : ""}
+      </span>
+    </span>
+  );
+}
+
 export default function HeroSection() {
   return (
     <section
@@ -124,7 +221,9 @@ export default function HeroSection() {
       <div className="relative z-10 mt-10 flex flex-wrap justify-center gap-6 text-center">
         {/* Projekter leveret */}
         <div className="flex flex-col items-center">
-          <span className="text-2xl sm:text-3xl font-extrabold text-white">125+</span>
+          <span className="text-2xl sm:text-3xl font-extrabold text-white">
+            <RollingCounter target={125} />
+          </span>
           <span className="text-slate-400 text-xs sm:text-sm mt-1">Projekter leveret</span>
         </div>
 

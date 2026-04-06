@@ -13,7 +13,8 @@ export default function AboutSection() {
               <img
                 src="/VID06368 - Kopi.jpg"
                 alt="Jalal"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "center 15%" }}
               />
             </div>
           </div>
@@ -51,7 +52,7 @@ export default function AboutSection() {
                 "Brand- og virksomhedsfilm",
                 "Produktfotografering til webshops",
                 "Social media content pakker",
-                "Samarbejde med marketingbureauer",
+                "Tæt samarbejde med marketingbureauer",
               ].map((punkt) => (
                 <div key={punkt} className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-[#DC2626]/20 flex items-center justify-center flex-shrink-0 mt-0.5">

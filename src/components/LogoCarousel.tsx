@@ -15,11 +15,16 @@ const logos = [
   "Klient 10",
 ];
 
+// 5 gentagelser = ~6500px per kopi — dækker super ultrawide (5120px+).
+// To kopier renderes — animation går 0 → -50% = præcis én kopi-bredde.
+const singleCopy = [...logos, ...logos, ...logos, ...logos, ...logos];
+
 export default function LogoCarousel() {
   return (
-    <section className="py-10 border-y border-white/10 overflow-hidden">
-      <div className="relative">
-        {/* Gradient-masker på siderne */}
+    <section className="py-10 border-y border-white/10">
+      {/* overflow-hidden sidder her — direkte forælder til sporet */}
+      <div className="relative overflow-hidden">
+        {/* Gradient-masker */}
         <div
           className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
           style={{ background: "linear-gradient(to right, #0d0f1e, transparent)" }}
@@ -29,33 +34,12 @@ export default function LogoCarousel() {
           style={{ background: "linear-gradient(to left, #0d0f1e, transparent)" }}
         />
 
-        {/* Sporet med 2 kopier — animation defineret via inline style med translate3d (GPU) */}
-        <div
-          style={{
-            display: "flex",
-            width: "max-content",
-            animation: "scroll-left 30s linear infinite",
-            willChange: "transform",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          {/* Kopi 1 */}
-          {logos.map((name) => (
+        {/* To kopier af singleCopy — animation -50% = præcis én kopi */}
+        <div className="carousel-infinite flex w-max">
+          {[...singleCopy, ...singleCopy].map((name, i) => (
             <div
-              key={`a-${name}`}
-              style={{ marginRight: "32px" }}
-              className="flex-shrink-0 px-6 py-2.5 rounded-lg border border-white/10 bg-white/5 text-slate-300 text-sm font-semibold whitespace-nowrap"
-            >
-              {name}
-            </div>
-          ))}
-
-          {/* Kopi 2 — identisk kopi, sikrer problemfrit loop */}
-          {logos.map((name) => (
-            <div
-              key={`b-${name}`}
-              style={{ marginRight: "32px" }}
-              className="flex-shrink-0 px-6 py-2.5 rounded-lg border border-white/10 bg-white/5 text-slate-300 text-sm font-semibold whitespace-nowrap"
+              key={i}
+              className="flex-shrink-0 mx-4 px-6 py-2.5 rounded-lg border border-white/10 bg-white/5 text-slate-300 text-sm font-semibold whitespace-nowrap"
             >
               {name}
             </div>

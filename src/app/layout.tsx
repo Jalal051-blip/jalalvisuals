@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import TitleBlinker from "@/components/TitleBlinker";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="da" className={`${geist.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0d0f1e] text-white">
+        <TitleBlinker />
         {children}
       </body>
     </html>

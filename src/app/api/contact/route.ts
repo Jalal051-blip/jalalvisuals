@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   try {
     // 1. Hent formular-data fra anmodningen
     const body = await request.json();
-    const { navn, virksomhed, email, telefon, besked } = body;
+    const { navn, virksomhed, instagram, email, telefon, besked } = body;
 
     // 2. Simpel validering — tjek at de vigtigste felter er udfyldt
     if (!navn || !email || !telefon) {
@@ -88,6 +88,22 @@ export async function POST(request: Request) {
 
     // 5. Send mailen
     await transporter.sendMail(mailIndstillinger);
+
+    // 6. Skriv til Google Sheets (fejler lydløst hvis URL mangler)
+    if (process.env.GOOGLE_SHEETS_URL) {
+      try {
+        const sheetsRes = await fetch(process.env.GOOGLE_SHEETS_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ navn, virksomhed, instagram, email, telefon, besked }),
+          redirect: "follow",
+        });
+        const sheetsData = await sheetsRes.text();
+        console.log("Sheets svar:", sheetsData);
+      } catch (sheetsErr) {
+        console.error("Google Sheets fejl:", sheetsErr);
+      }
+    }
 
     return NextResponse.json({ success: true });
   } catch (fejl) {
