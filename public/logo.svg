@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 96" width="520" height="96">
+  <defs>
+    <clipPath id="aperture-clip">
+      <circle cx="48" cy="48" r="44"/>
+    </clipPath>
+  </defs>
+
+  <!-- Rød baggrundscirkel -->
+  <circle cx="48" cy="48" r="44" fill="#DC2626"/>
+
+  <!-- Kamera-blænde blade (hvide, klippet til cirkel) -->
+  <g clip-path="url(#aperture-clip)">
+    <!-- 6 blade, hver roteret 60°, offset 15° for at give det karakteristiske blænde-look -->
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(15 48 48)"/>
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(75 48 48)"/>
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(135 48 48)"/>
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(195 48 48)"/>
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(255 48 48)"/>
+    <ellipse cx="48" cy="20" rx="12.5" ry="27" fill="white" opacity="0.93" transform="rotate(315 48 48)"/>
+
+    <!-- Hvid sekskant i midten — selve blænde-åbningen -->
+    <polygon points="48,33 59,40 59,57 48,64 37,57 37,40" fill="white"/>
+    <!-- Rød indre cirkel (center) -->
+    <circle cx="48" cy="48" r="9" fill="#DC2626"/>
+  </g>
+
+  <!-- "Jalal" — fed rød -->
+  <text
+    x="102"
+    y="66"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="50"
+    fill="#DC2626"
+    letter-spacing="-1"
+  >Jalal</text>
+
+  <!-- "Visuals" — fed mørk navy -->
+  <text
+    x="270"
+    y="66"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="50"
+    fill="#1e2240"
+    letter-spacing="-1"
+  >Visuals</text>
+</svg>
