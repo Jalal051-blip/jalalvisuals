@@ -7,6 +7,7 @@ import HeroSection from "@/components/HeroSection";
 import LogoCarousel from "@/components/LogoCarousel";
 import VideoSection from "@/components/VideoSection";
 import AboutSection from "@/components/AboutSection";
+import ReviewsSection from "@/components/ReviewsSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
@@ -25,6 +26,9 @@ export default function Home() {
 
         {/* Portefølje — videoer og billeder */}
         <VideoSection />
+
+        {/* Trustpilot anmeldelser */}
+        <ReviewsSection />
 
         {/* Om mig */}
         <AboutSection />

@@ -5,7 +5,14 @@
 // - useState: til at vise om formularen er sendt / fejler
 // - handleSubmit: en funktion der kører når brugeren klikker "Send"
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+
+const placeholders = [
+  "Fortæl mig om din virksomhed, hvad du har brug for, og hvornår du ønsker det leveret",
+  "Hvad er dit budget",
+  "Er der noget du ønsker at høre mere om",
+];
+import FadeIn from "@/components/FadeIn";
 
 // Typen af vores formular-data (TypeScript sikrer vi ikke glemmer felter)
 type FormData = {
@@ -33,6 +40,57 @@ export default function ContactForm() {
   // Status for indsendelse: idle=ikke sendt, loading=sender, success=sendt, error=fejl
   const [status, setStatus] = useState<Status>("idle");
   const [fejlBesked, setFejlBesked] = useState("");
+
+  // Scroll-baseret glød — fader ind jo tættere man er på sektionen
+  const sectionRef = useRef<HTMLElement>(null);
+  const [gloedOpacity, setGloedOpacity] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setGloedOpacity(entry.intersectionRatio),
+      { threshold: Array.from({ length: 21 }, (_, i) => i / 20) }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Typewriter-placeholder til besked-feltet
+  const [typedPlaceholder, setTypedPlaceholder] = useState("");
+  const placeholderRef = useRef({ index: 0, char: 0, typing: true });
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const state = placeholderRef.current;
+      const full = placeholders[state.index];
+
+      if (state.typing) {
+        if (state.char <= full.length) {
+          // Byg teksten op bogstav for bogstav, tilføj "..." som suffix mens den skrives
+          const dots = state.char < full.length ? "..." : "...";
+          setTypedPlaceholder(full.slice(0, state.char) + (state.char < full.length ? "|" : dots));
+          state.char++;
+          timeout = setTimeout(tick, state.char < 5 ? 80 : 55);
+        } else {
+          // Færdig med at skrive — vent 4 sek før næste
+          setTypedPlaceholder(full + "...");
+          state.typing = false;
+          timeout = setTimeout(tick, 4000);
+        }
+      } else {
+        // Skift til næste tekst
+        state.index = (state.index + 1) % placeholders.length;
+        state.char = 0;
+        state.typing = true;
+        setTypedPlaceholder("");
+        timeout = setTimeout(tick, 300);
+      }
+    };
+
+    timeout = setTimeout(tick, 600);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Opdater et felt i formData når brugeren skriver
   const handleChange = (
@@ -77,22 +135,52 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="kontakt" className="py-24 px-6">
+    <section
+      ref={sectionRef}
+      id="kontakt"
+      className="py-24 px-6 relative overflow-hidden"
+      style={{ background: "#07091a" }}
+    >
+      {/* Atmosfærisk gradient — fader ind jo tættere man ruller */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          opacity: gloedOpacity,
+          transition: "opacity 0.6s ease",
+          background: [
+            "radial-gradient(ellipse 55% 60% at 8%  15%,  rgba(80,10,10,0.70)   0%, transparent 65%)",
+            "radial-gradient(ellipse 50% 55% at 88% 85%,  rgba(220,38,38,0.45)  0%, transparent 60%)",
+            "radial-gradient(ellipse 35% 40% at 72% 58%,  rgba(160,20,20,0.30)  0%, transparent 55%)",
+          ].join(", "),
+        }}
+      />
+      <style>{`
+        @keyframes vibrer {
+          0%, 88%, 100% { transform: translateX(0) rotate(0deg); }
+          90%  { transform: translateX(-4px) rotate(-1.5deg); }
+          92%  { transform: translateX(4px)  rotate(1.5deg);  }
+          94%  { transform: translateX(-4px) rotate(-1deg);   }
+          96%  { transform: translateX(4px)  rotate(1deg);    }
+          98%  { transform: translateX(-2px) rotate(-0.5deg); }
+        }
+        .vibrer { animation: vibrer 5s ease-in-out infinite; display: inline-block; }
+      `}</style>
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Venstre side — tekst */}
-          <div className="md:sticky md:top-24">
+          <FadeIn className="md:sticky md:top-24">
             <div className="flex items-center gap-2 text-[#DC2626] text-sm font-semibold mb-4">
               <span className="w-4 h-[2px] bg-[#DC2626]" />
               Kontakt
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
               Lad os se om vi er et{" "}
-              <span className="text-[#DC2626]">match</span>
+              <span className="text-[#DC2626] vibrer">match</span>
             </h2>
             <p className="leading-relaxed mb-8" style={{ color: "rgba(148,163,184,0.8)" }}>
               Fortæl mig om dit projekt — jo mere du fortæller, jo bedre kan
-              jeg hjælpe. Jeg svarer inden for 24 timer på hverdage.
+              vi hjælpe. Vi svarer inden for 24 timer på hverdage.
             </p>
 
             <div className="space-y-4">
@@ -139,10 +227,11 @@ export default function ContactForm() {
                 </div>
               ))}
             </div>
-          </div>
+          </FadeIn>
 
           {/* Højre side — formularen */}
-          <div className="bg-[#151829] rounded-2xl border border-white/10 p-8">
+          <div className="relative">
+          <FadeIn delay={300} className="relative bg-[#151829] rounded-2xl border border-white/10 p-8">
             {status === "success" ? (
               // Succes-besked — vises når mailen er sendt
               <div className="text-center py-12">
@@ -255,7 +344,7 @@ export default function ContactForm() {
                     value={formData.besked}
                     onChange={handleChange}
                     rows={5}
-                    placeholder="Fortæl mig om din virksomhed, hvad du har brug for, og hvornår du ønsker det leveret..."
+                    placeholder={typedPlaceholder}
                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#DC2626] focus:ring-1 focus:ring-[#DC2626] transition-colors text-sm resize-none"
                   />
                 </div>
@@ -271,7 +360,7 @@ export default function ContactForm() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-4 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base transition-colors flex items-center justify-center gap-2"
+                  className="vibrer w-full py-4 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-base transition-colors flex items-center justify-center gap-2"
                 >
                   {status === "loading" ? (
                     <>
@@ -308,6 +397,7 @@ export default function ContactForm() {
                 </p>
               </form>
             )}
+          </FadeIn>
           </div>
         </div>
       </div>

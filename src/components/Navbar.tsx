@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 // Navigation links — href peger på section-id'er på siden
 const navLinks = [
   { label: "Arbejde", href: "#arbejde" },
-  { label: "Om mig", href: "#om-mig" },
+  { label: "Om", href: "#om-mig" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -36,6 +36,7 @@ export default function Navbar() {
             src="/logo.png"
             alt="JalalVisuals"
             className="h-8 w-auto object-contain"
+            style={{ filter: "drop-shadow(0 0 12px rgba(255,255,255,0.07)) brightness(1.08)" }}
           />
         </a>
 

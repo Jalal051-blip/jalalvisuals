@@ -66,7 +66,7 @@
 }
 
 .carousel-infinite {
-  animation: scroll-left 75s linear infinite;
+  animation: scroll-left 97.5s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
 }

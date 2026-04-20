@@ -1,13 +1,26 @@
-// Om mig-sektion — præsenterer Jalal og hans ekspertise.
-// Her kan du tilføje et portræt-billede af dig selv.
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import FadeIn from "@/components/FadeIn";
 
 export default function AboutSection() {
+  const listRef = useRef<HTMLDivElement>(null);
+  const [synlig, setSynlig] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setSynlig(true); },
+      { threshold: 0.2 }
+    );
+    if (listRef.current) observer.observe(listRef.current);
+    return () => observer.disconnect();
+  }, []);
   return (
     <section id="om-mig" className="py-24 px-6 bg-[#151829]">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-stretch">
           {/* Venstre side — billede fylder præcis samme højde som tekstkolonnen */}
-          <div className="relative">
+          <FadeIn className="relative">
             <div className="w-full h-full max-w-sm mx-auto rounded-2xl overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -17,18 +30,18 @@ export default function AboutSection() {
                 style={{ objectPosition: "center 15%" }}
               />
             </div>
-          </div>
+          </FadeIn>
 
           {/* Højre side — tekst */}
-          <div>
+          <FadeIn delay={300}>
             <div className="flex items-center gap-2 text-[#DC2626] text-sm font-semibold mb-4">
               <span className="w-4 h-[2px] bg-[#DC2626]" />
               Om mig
             </div>
 
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
-              Hej, jeg er{" "}
-              <span className="text-[#DC2626]">Jalal</span>
+              Derfor skal du vælge<br />
+              <span className="text-[#DC2626]">Jalal Visuals</span>
             </h2>
 
             <p className="text-slate-300 text-lg leading-relaxed mb-5">
@@ -46,15 +59,22 @@ export default function AboutSection() {
             </p>
 
             {/* Hvad jeg tilbyder */}
-            <div className="space-y-3 mb-10">
+            <div ref={listRef} className="space-y-3 mb-10">
               {[
                 "Produktvideoer til sociale medier & annoncer",
                 "Brand- og virksomhedsfilm",
                 "Produktfotografering til webshops",
-                "Social media content pakker",
                 "Tæt samarbejde med marketingbureauer",
-              ].map((punkt) => (
-                <div key={punkt} className="flex items-start gap-3">
+              ].map((punkt, i) => (
+                <div
+                  key={punkt}
+                  className="flex items-start gap-3"
+                  style={{
+                    opacity: synlig ? 1 : 0,
+                    transform: synlig ? "translateX(0)" : "translateX(-36px)",
+                    transition: `opacity 0.5s ease ${i * 110}ms, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 110}ms`,
+                  }}
+                >
                   <span className="w-5 h-5 rounded-full bg-[#DC2626]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg
                       width="10"
@@ -88,7 +108,7 @@ export default function AboutSection() {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -96,6 +96,16 @@ function RollingCounter({ target, duration = 5000 }: { target: number; duration?
 }
 
 export default function HeroSection() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setLoaded(true); }, []);
+
+  const fadeStyle = (delay: number) => ({
+    opacity: loaded ? 1 : 0,
+    transform: loaded ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+    willChange: "opacity, transform" as const,
+  });
+
   return (
     <section
       id="hjem"
@@ -191,34 +201,49 @@ export default function HeroSection() {
       {/* Indhold */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Hoved-overskrift */}
-        <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] tracking-tight mb-5">
+        <h1 style={fadeStyle(0)} className="text-[2.8rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight mb-5">
           Videoer der kan mærkes på <span className="text-[#DC2626]">omsætningen.</span>
         </h1>
 
         {/* Undertekst */}
-        <p className="text-base md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed" style={{ color: "rgba(148,163,184,0.8)" }}>
-          Vi står for manuskript, redigering og optagelse,<br />så du kan fokusere på det, du er god til.
+        <p style={{ ...fadeStyle(240), color: "rgba(148,163,184,0.8)" }} className="text-base md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+          Vi står for manuskript, redigering og optagelse,{" "}
+          <br className="sm:hidden" />så du kan fokusere på det, du er god til.
         </p>
 
         {/* Knapper */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <style>{`
+          @keyframes wave-shimmer {
+            0%, 70%  { transform: translateX(-160%) skewX(-12deg); opacity: 0; }
+            74%      { opacity: 1; }
+            100%     { transform: translateX(160%) skewX(-12deg); opacity: 0; }
+          }
+          .wave-shimmer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.40) 50%, transparent 100%);
+            animation: wave-shimmer 9s ease-in-out infinite;
+          }
+        `}</style>
+        <div style={fadeStyle(440)} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#kontakt"
-            className="px-8 py-4 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white font-semibold text-base transition-colors w-full sm:w-auto text-center"
+            className="wave-shimmer relative overflow-hidden px-6 py-3 sm:px-8 sm:py-4 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white font-semibold text-sm sm:text-base transition-colors w-full sm:w-auto text-center"
           >
             Få et tilbud
           </a>
           <a
             href="#arbejde"
-            className="px-8 py-4 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold text-base transition-colors w-full sm:w-auto text-center"
+            className="px-6 py-3 sm:px-8 sm:py-4 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold text-sm sm:text-base transition-colors w-full sm:w-auto text-center"
           >
-            Se mit arbejde
+            Se arbejde
           </a>
         </div>
       </div>
 
       {/* Statistik-badges nedenfor */}
-      <div className="relative z-10 mt-10 flex flex-wrap justify-center gap-6 text-center">
+      <div style={fadeStyle(680)} className="relative z-10 mt-10 flex flex-wrap justify-center gap-6 text-center">
         {/* Projekter leveret */}
         <div className="flex flex-col items-center">
           <span className="text-2xl sm:text-3xl font-extrabold text-white">

@@ -2,17 +2,24 @@
 // Dette er en ren server-komponent (ingen "use client", ingen useState/useEffect).
 // Det betyder React ALDRIG genrenderer den og animationen stopper aldrig.
 
-const logos = [
-  "Klient 1",
-  "Klient 2",
-  "Klient 3",
-  "Klient 4",
-  "Klient 5",
-  "Klient 6",
-  "Klient 7",
-  "Klient 8",
-  "Klient 9",
-  "Klient 10",
+type Logo = { type: "tekst"; navn: string } | { type: "billede"; src: string; alt: string; filter?: string; blend?: boolean; h?: string; scale?: number };
+
+// filter "inverter": mørkt logo på hvid baggrund → hvidt logo på sort baggrund (passer til mørkt tema)
+// filter "grå":     farvet logo → gråtoner med opacity (beholder formen uden mærkelig farveinversion)
+const inverter = "grayscale(1) invert(1) opacity(0.75)";
+const grå      = "grayscale(1) opacity(0.70)";
+
+const logos: Logo[] = [
+  { type: "billede", src: "/227305-1523083836.png",              alt: "Watery",                filter: inverter, blend: true },
+  { type: "billede", src: "/farvexpertencover.png",               alt: "FarveXperten",          filter: grå },
+  { type: "billede", src: "/MuscleHouse_white.png",               alt: "Muscle House",           blend: true },
+  { type: "billede", src: "/Danbo - blå Logo.png",                alt: "Dan-Bo",                filter: grå },
+  { type: "billede", src: "/PITAYA_white.png",                    alt: "Pitaya",                blend: true },
+  { type: "billede", src: "/Design uden navn (52).png", alt: "NordiskPuls",  filter: inverter, blend: true },
+  { type: "billede", src: "/Logo (transparant).png",    alt: "Nordic Cozy", filter: inverter, blend: true },
+  { type: "billede", src: "/ProBrush_white.png",        alt: "ProBrush",    blend: true, scale: 3.5 },
+  { type: "billede", src: "/0x0 (2).png", alt: "The Copenhagen Scent", filter: inverter, blend: true },
+  { type: "billede", src: "/Confidence logo white.png", alt: "Confidence", blend: true },
 ];
 
 // 5 gentagelser = ~6500px per kopi — dækker super ultrawide (5120px+).
@@ -39,9 +46,20 @@ export default function LogoCarousel() {
           {[...singleCopy, ...singleCopy].map((name, i) => (
             <div
               key={i}
-              className="flex-shrink-0 mx-4 px-6 py-2.5 rounded-lg border border-white/10 bg-white/5 text-slate-300 text-sm font-semibold whitespace-nowrap"
+              className="flex-shrink-0 mx-16 whitespace-nowrap flex items-center justify-center"
             >
-              {name}
+              {name.type === "billede" ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={name.src} alt={name.alt} className="object-contain" style={{
+                  filter: name.filter ?? "grayscale(1) opacity(0.7)",
+                  mixBlendMode: name.blend ? "screen" : undefined,
+                  height: name.h ?? "3.5rem",
+                  width: "auto",
+                  transform: name.scale ? `scale(${name.scale})` : undefined,
+                }} />
+              ) : (
+                <span className="text-slate-300 text-sm font-semibold">{name.navn}</span>
+              )}
             </div>
           ))}
         </div>

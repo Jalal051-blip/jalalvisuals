@@ -2,7 +2,7 @@
 
 const navLinks = [
   { label: "Arbejde", href: "#arbejde" },
-  { label: "Om mig", href: "#om-mig" },
+  { label: "Om", href: "#om-mig" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -20,6 +20,7 @@ export default function Footer() {
                 src="/logo.png"
                 alt="JalalVisuals"
                 className="h-8 w-auto object-contain"
+                style={{ filter: "drop-shadow(0 0 12px rgba(255,255,255,0.07)) brightness(1.08)" }}
               />
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
@@ -53,11 +54,20 @@ export default function Footer() {
             >
               info@jalalvisuals.dk
             </a>
+            <a
+              href="tel:+4560535289"
+              className="text-slate-400 hover:text-white text-sm transition-colors block mb-2"
+            >
+              +45 60 53 52 89
+            </a>
+            <p className="text-slate-400 text-sm">CVR: 46139364</p>
             {/* Sociale medier — tilføj dine egne links */}
             <div className="flex gap-3 mt-4">
               {/* Instagram */}
               <a
-                href="#"
+                href="https://www.instagram.com/jalalvisuals/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors"
               >
