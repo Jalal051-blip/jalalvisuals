@@ -209,6 +209,13 @@ export default function ContactForm() {
                   ),
                   tekst: "Landsdækkende i hele Danmark",
                 },
+                {
+                  icon: (
+                    <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z M12 17a4 4 0 100-8 4 4 0 000 8z" />
+                  ),
+                  tekst: "Se mit portræt",
+                  href: "https://affily.app/transfer-assets/xQM3l4GlOiwYXpFznfZKMofGhBhMxvnp",
+                },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-slate-300">
                   <div className="w-10 h-10 rounded-lg bg-[#1e2240] flex items-center justify-center flex-shrink-0">
@@ -223,7 +230,11 @@ export default function ContactForm() {
                       {item.icon}
                     </svg>
                   </div>
-                  <span className="text-sm">{item.tekst}</span>
+                  {"href" in item ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors">{item.tekst}</a>
+                  ) : (
+                    <span className="text-sm">{item.tekst}</span>
+                  )}
                 </div>
               ))}
             </div>
