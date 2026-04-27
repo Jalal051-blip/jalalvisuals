@@ -223,7 +223,7 @@ export default function ContactForm() {
                       {item.icon}
                     </svg>
                   </div>
-                  {"href" in item ? (
+                  {"href" in item && typeof item.href === "string" ? (
                     <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors">{item.tekst}</a>
                   ) : (
                     <span className="text-sm">{item.tekst}</span>
