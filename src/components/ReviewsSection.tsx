@@ -13,13 +13,14 @@ const anmeldelser = [
       "vi i webshopskolen bruger jalalvisuals fast. Sindssyg god kommunikation, han brænder virkelig virkelig for det, og han overleverer og underpromiser. Han gør det virkelig godt, og har oprigtigt virkelig overleveret ift. hvad vi betaler ham. Han er en af de dygtigste til at levere ecommerce content i DK efter min mening.",
   },
   {
-    navn: "Christian Roland",
-    initialer: "CR",
-    farve: "#a8d5e2",
-    dato: "25. nov. 2025",
-    titel: "10/10 kvalitet, kommunikation og service",
+    navn: "MQM Biler ApS",
+    initialer: "M",
+    farve: "#4285F4",
+    dato: "for 2 år siden",
+    titel: "5/5 — Google anmeldelse",
     tekst:
-      "Jeg brugte Jalalvisuals til et projekt, og er meget tilfreds. Det hele gik super hurtigt, og Jalal svarede ekstremt hurtigt når jeg havde rettelser og script, model, shootdag osv. blev gjort klar på ingen tid. Det endelige resultat var også lige i skabet. Jalal valgte på egen regning at tage en ekstra skydedag for at få det fikset. Det ser man ikke mange andre steder, så kæmpe anbefaling herfra!",
+      "Jalal fra JalalVisuals har været vores content-samarbejdspartner de sidste 16 mdr. Hans evne til altid komme med nye ideer hvad angår billeder og video af biler er vi utrolig overrasket over! Kæmpe anbefaling herfra.",
+    google: true,
   },
   {
     navn: "Ida Dolleris",
@@ -31,13 +32,14 @@ const anmeldelser = [
       "Vi brugte Jalal og hans kollega som fotografer til vores Social Run i Aarhus med 170 deltagere – og vi kunne ikke være mere tilfredse! De var super professionelle, ekstremt dedikerede og fangede præcis den stemning vi ønskede. Vi kan varmt anbefale Jalal Visuals til alle der ønsker professionelt content.",
   },
   {
-    navn: "Joseph",
-    initialer: "J",
-    farve: "#c8b8e8",
-    dato: "22. nov. 2025",
-    titel: "Professionelt samarbejde og høj kvalitet",
+    navn: "Fitcube Aps",
+    initialer: "F",
+    farve: "#4285F4",
+    dato: "for ét år siden",
+    titel: "5/5 — Google anmeldelse",
     tekst:
-      "Jeg har haft et rigtig godt og effektivt samarbejde med Jalal. Jeg er ejer af BodyFlex, og jeg oplevede en klar og hurtig kommunikation gennem hele processen. Der var god og konstruktiv sparring undervejs, og kvaliteten af det færdige materiale var helt i top. Kan varmt anbefales.",
+      "Vi har brugt Jalal Visuals til at lave billeder og video af vores launch party og produktvideo af vores første Fitcube. Han fangede essensen af hvad vi vil og fik det kogt sammen i nogle lækre videoer. Klart anbefaling her fra.",
+    google: true,
   },
   {
     navn: "Hans-Kristian Sabro Kok",
@@ -59,11 +61,11 @@ const anmeldelser = [
   },
 ];
 
-function Stjerner() {
+function Stjerner({ google }: { google?: boolean }) {
   return (
     <div className="flex gap-0.5 mb-3">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#00b67a">
+        <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill={google ? "#FFC107" : "#00b67a"}>
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
@@ -86,16 +88,83 @@ export default function ReviewsSection() {
               Hvad siger{" "}
               <span className="text-[#DC2626]">kunderne?</span>
             </h2>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://www.google.com/search?q=jalalvisuals+googleanmeldelser"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 48 48">
+                  <path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/>
+                  <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/>
+                  <path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5.1l-6.2-5.2C29.4 35.5 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.6 5.1C9.6 39.5 16.3 44 24 44z"/>
+                  <path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.3-4.5 5.7l6.2 5.2C40.8 35.5 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/>
+                </svg>
+                Se alle anmeldelser på Google
+              </a>
+              <a
+                href="https://dk.trustpilot.com/review/jalalvisuals.dk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Se alle anmeldelser på Trustpilot
+              </a>
+            </div>
+          </div>
+          <p className="text-slate-400 leading-relaxed max-w-2xl mt-4">
+            Vi bliver valgt igen og igen af vores kunder og samarbejdspartnere. Det gør de, fordi vi skaber gode resultater og holder, hvad vi lover. Det bevidner vores anmeldelser også.
+          </p>
+
+          {/* Platform-badges */}
+          <div className="flex flex-wrap gap-4 mt-6">
+            {/* Google badge */}
+            <a
+              href="https://www.google.com/search?q=jalalvisuals+googleanmeldelser"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#151829] border border-white/10 hover:border-white/25 transition-colors"
+            >
+              <svg width="20" height="20" viewBox="0 0 48 48">
+                <path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/>
+                <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/>
+                <path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5.1l-6.2-5.2C29.4 35.5 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.6 5.1C9.6 39.5 16.3 44 24 44z"/>
+                <path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.3-4.5 5.7l6.2 5.2C40.8 35.5 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/>
+              </svg>
+              <div>
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => (
+                    <svg key={s} width="12" height="12" viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                  <span className="text-white text-sm font-bold ml-1">5,0</span>
+                </div>
+                <p className="text-slate-400 text-xs mt-0.5">106+ Google anmeldelser</p>
+              </div>
+            </a>
+
+            {/* Trustpilot badge */}
             <a
               href="https://dk.trustpilot.com/review/jalalvisuals.dk"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#151829] border border-white/10 hover:border-white/25 transition-colors"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#00b67a">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
-              Se alle anmeldelser på Trustpilot
+              <div>
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => (
+                    <svg key={s} width="12" height="12" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                  <span className="text-white text-sm font-bold ml-1">4,8</span>
+                </div>
+                <p className="text-slate-400 text-xs mt-0.5">47+ Trustpilot anmeldelser</p>
+              </div>
             </a>
           </div>
         </FadeIn>
@@ -122,8 +191,26 @@ export default function ReviewsSection() {
                 <span className="text-slate-500 text-xs">{a.dato}</span>
               </div>
 
+              {/* Platform */}
+              {"google" in a && a.google ? (
+                <div className="flex items-center gap-1.5">
+                  <svg width="13" height="13" viewBox="0 0 48 48">
+                    <path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/>
+                    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/>
+                    <path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5.1l-6.2-5.2C29.4 35.5 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.6 5.1C9.6 39.5 16.3 44 24 44z"/>
+                    <path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.3-4.5 5.7l6.2 5.2C40.8 35.5 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/>
+                  </svg>
+                  <span className="text-slate-500 text-xs">Google</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <span className="text-slate-500 text-xs">Trustpilot</span>
+                </div>
+              )}
+
               {/* Stjerner */}
-              <Stjerner />
+              <Stjerner google={"google" in a && a.google === true} />
 
               {/* Titel */}
               <p className="text-white text-sm font-semibold leading-snug">{a.titel}</p>

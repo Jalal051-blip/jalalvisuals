@@ -225,6 +225,14 @@ const projekter = [
     videoUrl: "mVpfVSjjLQM",
   },
   {
+    id: 29,
+    titel: "Explainer Video 5",
+    kategori: "explainer",
+    tags: [],
+    src: null,
+    videoUrl: "df2EEq_W1eM",
+  },
+  {
     id: 9,
     titel: "Service Video 1",
     kategori: "service",
@@ -385,9 +393,12 @@ export default function VideoSection() {
             Mit arbejde
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white">
-            Content{" "}
+            Videoer{" "}
             <span className="text-white">der </span><span className="text-[#DC2626]">konverterer</span>
           </h2>
+          <p className="mt-4 text-slate-400 max-w-2xl leading-relaxed">
+            Vi laver knivskarpe videoer, der skaber salg. Gennem flere år har vi lært, hvad der virker — og hvad der ikke gør. Den erfaring er din genvej til resultater.
+          </p>
         </FadeIn>
 
         {/* Tab-filter knapper */}
@@ -471,7 +482,7 @@ export default function VideoSection() {
           </p>
           <a
             href="#kontakt"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white font-semibold transition-colors"
+            className="wave-shimmer relative overflow-hidden inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white font-semibold transition-colors"
           >
             Kontakt mig
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

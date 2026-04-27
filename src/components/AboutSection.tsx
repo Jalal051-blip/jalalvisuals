@@ -44,16 +44,11 @@ export default function AboutSection() {
               <span className="text-[#DC2626]">Jalal Visuals</span>
             </h2>
 
-            <p className="text-slate-300 text-lg leading-relaxed mb-5">
-              Jeg er freelance videograf og fotograf med fokus på at skabe
-              visuelt indhold, der ikke bare ser godt ud — men som faktisk
-              virker.
-            </p>
 
             <p className="text-slate-400 leading-relaxed mb-8">
-              Jeg arbejder primært med e-commerce virksomheder og
+              Vi arbejder primært med e-commerce virksomheder og
               servicevirksomheder, der ønsker at løfte deres brand med
-              professionelle videoer og billeder. Jeg hyres også ind af
+              professionelle videoer og billeder. Vi hyres også ind af
               marketingbureauer til produktioner, der kræver et skarpt øje og
               en erfaren hånd.
             </p>
