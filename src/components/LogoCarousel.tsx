@@ -2,7 +2,7 @@
 // Dette er en ren server-komponent (ingen "use client", ingen useState/useEffect).
 // Det betyder React ALDRIG genrenderer den og animationen stopper aldrig.
 
-type Logo = { type: "tekst"; navn: string } | { type: "billede"; src: string; alt: string; filter?: string; blend?: boolean; h?: string; scale?: number };
+type Logo = { type: "tekst"; navn: string } | { type: "billede"; src: string; alt: string; filter?: string; blend?: boolean; h?: string; scale?: number; ml?: string };
 
 // filter "inverter": mørkt logo på hvid baggrund → hvidt logo på sort baggrund (passer til mørkt tema)
 // filter "grå":     farvet logo → gråtoner med opacity (beholder formen uden mærkelig farveinversion)
@@ -10,21 +10,22 @@ const inverter = "grayscale(1) invert(1) opacity(0.75)";
 const grå      = "grayscale(1) opacity(0.70)";
 
 const logos: Logo[] = [
-  { type: "billede", src: "/227305-1523083836.png",              alt: "Watery",                filter: inverter, blend: true },
-  { type: "billede", src: "/farvexpertencover.png",               alt: "FarveXperten",          filter: grå },
-  { type: "billede", src: "/MuscleHouse_white.png",               alt: "Muscle House",           blend: true },
-  { type: "billede", src: "/Danbo - blå Logo.png",                alt: "Dan-Bo",                filter: grå },
-  { type: "billede", src: "/PITAYA_white.png",                    alt: "Pitaya",                blend: true },
-  { type: "billede", src: "/Design uden navn (52).png", alt: "NordiskPuls",  filter: inverter, blend: true },
-  { type: "billede", src: "/Logo (transparant).png",    alt: "Nordic Cozy", filter: inverter, blend: true },
-  { type: "billede", src: "/ProBrush_white.png",        alt: "ProBrush",    blend: true, scale: 3.5 },
-  { type: "billede", src: "/0x0 (2).png", alt: "The Copenhagen Scent", filter: inverter, blend: true },
-  { type: "billede", src: "/Confidence logo white.png", alt: "Confidence", blend: true },
+  { type: "billede", src: "/227305-1523083836.webp",              alt: "Watery",                filter: inverter, blend: true },
+  { type: "billede", src: "/farvexpertencover.webp",               alt: "FarveXperten",          filter: "grayscale(1) invert(1) brightness(1.8) opacity(0.85)", blend: true },
+  { type: "billede", src: "/Danbo - blå Logo.webp",                alt: "Dan-Bo",                filter: grå },
+  { type: "billede", src: "/PITAYA_white.webp",                    alt: "Pitaya",                blend: true },
+  { type: "billede", src: "/Design uden navn (52).webp", alt: "NordiskPuls",  filter: inverter, blend: true },
+  { type: "billede", src: "/Logo (transparant).webp",    alt: "Nordic Cozy", filter: inverter, blend: true },
+  { type: "billede", src: "/ProBrush_white.webp",        alt: "ProBrush",    blend: true, scale: 3.5 },
+  { type: "billede", src: "/THE_COPENHAGEN_SCENT_white.webp", alt: "The Copenhagen Scent", blend: true, scale: 2.5, h: "4rem", ml: "4rem" },
+  { type: "billede", src: "/Confidence logo white.webp", alt: "Confidence", blend: true },
+  { type: "billede", src: "/wispy.webp",                 alt: "Wispy",      filter: grå },
+  { type: "billede", src: "/Logo_Ubbe_RGB.webp",        alt: "Ubbe",       filter: inverter, blend: true },
 ];
 
-// 5 gentagelser = ~6500px per kopi — dækker super ultrawide (5120px+).
+// 2 gentagelser = ~6500px per kopi — dækker ultrawide (3440px+).
 // To kopier renderes — animation går 0 → -50% = præcis én kopi-bredde.
-const singleCopy = [...logos, ...logos, ...logos, ...logos, ...logos];
+const singleCopy = [...logos, ...logos];
 
 export default function LogoCarousel() {
   return (
@@ -50,12 +51,13 @@ export default function LogoCarousel() {
             >
               {name.type === "billede" ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={name.src} alt={name.alt} className="object-contain" style={{
+                <img src={name.src} alt={name.alt} decoding="async" className="object-contain" style={{
                   filter: name.filter ?? "grayscale(1) opacity(0.7)",
                   mixBlendMode: name.blend ? "screen" : undefined,
                   height: name.h ?? "3.5rem",
                   width: "auto",
                   transform: name.scale ? `scale(${name.scale})` : undefined,
+                  marginLeft: name.ml ?? undefined,
                 }} />
               ) : (
                 <span className="text-slate-300 text-sm font-semibold">{name.navn}</span>
