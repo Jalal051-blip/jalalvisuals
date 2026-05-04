@@ -11,7 +11,7 @@
 // hvilket tvinger elementet til at have en højde på 177.78% af sin bredde
 // — altså 9:16 format.
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import FadeIn from "@/components/FadeIn";
 
 // Kategorier til tab-filteret
@@ -33,8 +33,9 @@ const projekter = [
     titel: "Produktvideo — Mode",
     kategori: "video",
     tags: ["ecom"],
-    src: null,         // erstat med "/thumbnails/projekt1.jpg"
+    src: null,
     videoUrl: "-hpWdzlUHG4",
+    autoplay: true,
   },
   {
     id: 20,
@@ -51,7 +52,6 @@ const projekter = [
     tags: ["ecom"],
     src: null,
     videoUrl: "BfG7s9MfhEI",
-    thumbnailVariant: "1",
   },
   {
     id: 22,
@@ -60,7 +60,6 @@ const projekter = [
     tags: ["ecom"],
     src: null,
     videoUrl: "AZF_oK5xyyU",
-    thumbnailVariant: "3",
   },
   {
     id: 25,
@@ -77,7 +76,6 @@ const projekter = [
     tags: ["ecom"],
     src: null,
     videoUrl: "NGBNLJDN4ss",
-    thumbnailVariant: "2",
   },
   {
     id: 27,
@@ -86,7 +84,6 @@ const projekter = [
     tags: ["ecom"],
     src: null,
     videoUrl: "RRmPtKdmh-o",
-    thumbnailVariant: "3",
   },
   {
     id: 28,
@@ -271,17 +268,42 @@ type Projekt = (typeof projekter)[number] & { format?: string };
 // Hvert kort styrer sin egen afspilnings-tilstand
 function ProjektKort({ projekt, paddingBottom, fillHeight }: { projekt: Projekt; paddingBottom?: string; fillHeight?: boolean }) {
   const [spiller, setSpiller] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const kortRef = useRef<HTMLDivElement>(null);
   const harVideo = !!projekt.videoUrl;
   // Brug YouTube auto-thumbnail hvis intet manuelt thumbnail er sat
-  const variant = (projekt as { thumbnailVariant?: string }).thumbnailVariant ?? "hqdefault";
+  const variant = (projekt as { thumbnailVariant?: string }).thumbnailVariant ?? "maxresdefault";
   const thumbnail = projekt.src ?? (harVideo ? `https://img.youtube.com/vi/${projekt.videoUrl}/${variant}.jpg` : null);
+
+  const kanAutoplay = !!(projekt as { autoplay?: boolean }).autoplay;
+
+  // Autoplay muted ved scroll — kun hvis autoplay: true
+  useEffect(() => {
+    if (!harVideo || !kanAutoplay) return;
+    const el = kortRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !spiller) {
+          setMuted(true);
+          setSpiller(true);
+        } else if (!entry.isIntersecting && muted) {
+          setSpiller(false);
+          setMuted(false);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [harVideo, spiller, muted]);
 
   const indhold = (
     <>
       {spiller && harVideo ? (
         /* ── Inline YouTube-afspiller ── */
         <iframe
-          src={`https://www.youtube.com/embed/${projekt.videoUrl}?autoplay=1&rel=0&modestbranding=1`}
+          src={`https://www.youtube.com/embed/${projekt.videoUrl}?autoplay=1&rel=0&modestbranding=1${muted ? "&mute=1" : ""}`}
           allow="autoplay; fullscreen"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
@@ -296,9 +318,9 @@ function ProjektKort({ projekt, paddingBottom, fillHeight }: { projekt: Projekt;
             className="absolute inset-0 w-full h-full object-cover"
             onError={(e) => {
               const img = e.currentTarget;
-              // Fallback-kæde: valgt variant → hqdefault → mqdefault
-              if (!img.src.includes("hqdefault") && !img.src.includes("mqdefault")) {
-                img.src = img.src.replace(/\/[^/]+\.jpg$/, "/hqdefault.jpg");
+              // Fallback-kæde: maxresdefault → hqdefault → mqdefault
+              if (img.src.includes("maxresdefault")) {
+                img.src = img.src.replace("maxresdefault", "hqdefault");
               } else if (img.src.includes("hqdefault")) {
                 img.src = img.src.replace("hqdefault", "mqdefault");
               }
@@ -339,8 +361,9 @@ function ProjektKort({ projekt, paddingBottom, fillHeight }: { projekt: Projekt;
   if (fillHeight) {
     return (
       <div
+        ref={kortRef}
         className={`group relative rounded-xl overflow-hidden w-full h-full ${harVideo && !spiller ? "cursor-pointer" : ""}`}
-        onClick={harVideo && !spiller ? () => setSpiller(true) : undefined}
+        onClick={harVideo && !spiller ? () => { setMuted(false); setSpiller(true); } : undefined}
       >
         {indhold}
       </div>
@@ -348,8 +371,9 @@ function ProjektKort({ projekt, paddingBottom, fillHeight }: { projekt: Projekt;
   }
   return (
     <div
+      ref={kortRef}
       className={`group relative ${harVideo && !spiller ? "cursor-pointer" : ""}`}
-      onClick={harVideo && !spiller ? () => setSpiller(true) : undefined}
+      onClick={harVideo && !spiller ? () => { setMuted(false); setSpiller(true); } : undefined}
     >
       <div className="relative w-full rounded-xl overflow-hidden" style={{ paddingBottom }}>
         {indhold}

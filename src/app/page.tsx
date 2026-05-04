@@ -8,6 +8,7 @@ import LogoCarousel from "@/components/LogoCarousel";
 import VideoSection from "@/components/VideoSection";
 import AboutSection from "@/components/AboutSection";
 import ReviewsSection from "@/components/ReviewsSection";
+import ProcessSection from "@/components/ProcessSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
@@ -29,6 +30,9 @@ export default function Home() {
 
         {/* Trustpilot anmeldelser */}
         <ReviewsSection />
+
+        {/* Arbejdsproces */}
+        <ProcessSection />
 
         {/* Om mig */}
         <AboutSection />
