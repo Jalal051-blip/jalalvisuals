@@ -17,6 +17,7 @@ import FadeIn from "@/components/FadeIn";
 // Kategorier til tab-filteret
 const kategorier = [
   { id: "ecom", label: "E-Commerce" },
+  { id: "proads", label: "Pro Ads", gold: true },
   { id: "service", label: "Service" },
   { id: "explainer", label: "Explainer" },
   { id: "foto", label: "Foto" },
@@ -230,6 +231,30 @@ const projekter = [
     videoUrl: "df2EEq_W1eM",
   },
   {
+    id: 30,
+    titel: "Pro Ad 1",
+    kategori: "proads",
+    tags: [],
+    src: null,
+    videoUrl: "Xho_od7yQZs",
+  },
+  {
+    id: 31,
+    titel: "Pro Ad 2",
+    kategori: "proads",
+    tags: [],
+    src: null,
+    videoUrl: "H9POu7xBkaE",
+  },
+  {
+    id: 32,
+    titel: "Pro Ad 3",
+    kategori: "proads",
+    tags: [],
+    src: null,
+    videoUrl: "akogkKlc4Fg",
+  },
+  {
     id: 9,
     titel: "Service Video 1",
     kategori: "service",
@@ -392,6 +417,7 @@ export default function VideoSection() {
   const filtrerede = projekter.filter((p) => {
     if (aktivKategori === "alle") return true;
     if (aktivKategori === "ecom") return (p.tags as string[]).includes("ecom");
+    if (aktivKategori === "proads") return p.kategori === "proads";
     return p.kategori === aktivKategori;
   });
 
@@ -427,19 +453,40 @@ export default function VideoSection() {
 
         {/* Tab-filter knapper */}
         <FadeIn delay={240} className="flex flex-wrap gap-3 mb-10">
-          {kategorier.map((kat) => (
-            <button
-              key={kat.id}
-              onClick={() => skiftTab(kat.id)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
-                aktivKategori === kat.id
-                  ? "bg-[#DC2626] text-white"
-                  : "border border-white/20 text-slate-300 hover:border-white/40 hover:text-white"
-              }`}
-            >
-              {kat.label}
-            </button>
-          ))}
+          {kategorier.map((kat) => {
+            const isActive = aktivKategori === kat.id;
+            const isGold = kat.gold;
+            return (
+              <button
+                key={kat.id}
+                onClick={() => skiftTab(kat.id)}
+                className="px-5 py-2 rounded-full text-sm font-semibold transition-all"
+                style={
+                  isGold
+                    ? isActive
+                      ? {
+                          background: "linear-gradient(90deg, #b8860b, #ffd700, #b8860b)",
+                          backgroundSize: "200% auto",
+                          animation: "goldShimmer 2s linear infinite",
+                          color: "#1a1000",
+                          boxShadow: "0 0 12px rgba(255,215,0,0.5)",
+                        }
+                      : {
+                          background: "linear-gradient(90deg, #b8860b, #ffd700, #b8860b)",
+                          backgroundSize: "200% auto",
+                          animation: "goldShimmer 2s linear infinite",
+                          color: "#1a1000",
+                          opacity: 0.85,
+                        }
+                    : isActive
+                    ? { backgroundColor: "#DC2626", color: "white" }
+                    : { border: "1px solid rgba(255,255,255,0.2)", color: "#cbd5e1" }
+                }
+              >
+                {kat.label}
+              </button>
+            );
+          })}
         </FadeIn>
 
         {/* Grid — foto: 2 rækker × 3 kolonner 1:1, explainer: 16:9 i 2 kolonner, resten: 9:16 i 4 kolonner */}
