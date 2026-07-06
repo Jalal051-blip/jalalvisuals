@@ -9,6 +9,7 @@ import VideoSection from "@/components/VideoSection";
 import AboutSection from "@/components/AboutSection";
 import ReviewsSection from "@/components/ReviewsSection";
 import ProcessSection from "@/components/ProcessSection";
+import FAQSection from "@/components/FAQSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
@@ -39,6 +40,9 @@ export default function Home() {
 
         {/* Kontaktformular */}
         <ContactForm />
+
+        {/* Ofte stillede spørgsmål */}
+        <FAQSection />
       </main>
 
       <Footer />

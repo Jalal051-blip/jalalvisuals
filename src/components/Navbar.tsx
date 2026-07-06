@@ -5,9 +5,12 @@ import { Menu, X } from "lucide-react";
 
 // Navigation links — href peger på section-id'er på siden
 const navLinks = [
-  { label: "Arbejde", href: "#arbejde" },
-  { label: "Om", href: "#om-mig" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Forside", href: "/" },
+  { label: "Arbejde", href: "/#arbejde" },
+  { label: "Om", href: "/#om-mig" },
+  { label: "Kontakt", href: "/#kontakt" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Creator", href: "/creator" },
 ];
 
 export default function Navbar() {
@@ -54,7 +57,7 @@ export default function Navbar() {
             ))}
           </nav>
           <a
-            href="#kontakt"
+            href="/#kontakt"
             className="inline-flex items-center px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white text-sm font-semibold transition-colors"
           >
             Få et tilbud
@@ -85,7 +88,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#kontakt"
+            href="/#kontakt"
             onClick={() => setMenuOpen(false)}
             className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white font-semibold transition-colors"
           >
