@@ -8,7 +8,7 @@ const trin = [
   },
   {
     nr: "02",
-    titel: "Vi mødes på location",
+    titel: "Vi mødes på lokation",
     tekst: "Vi sætter udstyr op, mens du slapper af. Du behøver ikke tænke på lys, lyd eller kameravinkler — det er vores job.",
   },
   {
@@ -24,13 +24,13 @@ const trin = [
   {
     nr: "05",
     titel: "Du er færdig",
-    tekst: "De fleste dage er overstået på 2-4 timer. Vi klarer resten — redigering, farvekorrigering og levering til virksomheden.",
+    tekst: "De fleste projekter er overstået på 2-4 timer. Vi klarer resten.",
   },
 ];
 
 export default function CreatorProcess() {
   return (
-    <section id="optagelsesdag" className="py-24 px-6" style={{ background: "#080a14" }}>
+    <section id="optagelsesdag" className="py-24 px-6" style={{ background: "#0d0f1e" }}>
       <div className="max-w-3xl mx-auto">
         <FadeIn>
           <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#DC2626" }}>

@@ -16,7 +16,7 @@ export default function CreatorHero() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center pt-24 pb-16">
+      <div className="relative max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-16 items-center">
 
         {/* Venstre — tekst */}
         <FadeIn>
@@ -29,15 +29,15 @@ export default function CreatorHero() {
               <span style={{ color: "#DC2626" }}>sammen med dig</span>
             </h1>
             <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-lg">
-              Her får du et indblik i, hvordan det foregår, når videografen kommer ud til dig — og hvad du kan forvente på dagen.
+              Her får du et indblik i, hvordan samarbejdet foregår, og forskellen på, når videografen kommer ud til dig, og når du selv skal optage.
             </p>
 
             {/* Tre hurtige punkter */}
             <div className="flex flex-col gap-4">
               {[
-                "Vi tager os af alt teknik — lys, lyd og kamera",
-                "Du modtager et fuldt brief inden optagelsesdagen",
-                "De fleste produktioner er overstået på under 4 timer",
+                "Fair betalt løn for din tid",
+                "Film hjemmefra i dine egne omgivelser",
+                "Ingen erfaring krævet — vi guider dig hele vejen",
               ].map((punkt, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <div
@@ -55,34 +55,44 @@ export default function CreatorHero() {
           </div>
         </FadeIn>
 
-        {/* Højre — video */}
+        {/* Højre — to videoer */}
         <FadeIn>
-          <div className="flex justify-center md:justify-end">
-            <div
-              className="w-72 md:w-80"
-              style={{
-                borderRadius: "1.5rem",
-                overflow: "hidden",
-                boxShadow: "0 0 60px rgba(220,38,38,0.2), 0 20px 60px rgba(0,0,0,0.5)",
-                border: "1px solid rgba(220,38,38,0.2)",
-              }}
-            >
-              <div style={{ position: "relative", paddingBottom: "177.78%", height: 0 }}>
-                <iframe
-                  src="https://www.youtube.com/embed/w2N5wAXf3LU?autoplay=1&mute=1&loop=1&playlist=w2N5wAXf3LU&controls=0&playsinline=1&rel=0&modestbranding=1"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
+          <div className="flex justify-center md:justify-end gap-6 items-start">
+            {[
+              { id: "w2N5wAXf3LU", label: "UGC" },
+              { id: "-hpWdzlUHG4", label: "Professionel" },
+            ].map((video, i) => (
+              <div key={i} className="flex flex-col items-center gap-3 shrink-0" style={{ width: "264px" }}>
+                <div
+                  className="w-full"
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
+                    borderRadius: "1.25rem",
+                    overflow: "hidden",
+                    boxShadow: "0 0 40px rgba(220,38,38,0.15), 0 20px 40px rgba(0,0,0,0.5)",
+                    border: "1px solid rgba(220,38,38,0.15)",
                   }}
-                />
+                >
+                  <div style={{ position: "relative", paddingBottom: "177.78%", height: 0 }}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&loop=1&playlist=${video.id}&controls=0&playsinline=1&rel=0&modestbranding=1`}
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        border: "none",
+                      }}
+                    />
+                  </div>
+                </div>
+                <span className="text-sm font-semibold tracking-wide text-white px-4 py-1.5 rounded-full" style={{ background: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.3)", color: "#DC2626" }}>
+                  {video.label}
+                </span>
               </div>
-            </div>
+            ))}
           </div>
         </FadeIn>
 

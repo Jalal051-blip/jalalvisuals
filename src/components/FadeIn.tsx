@@ -12,7 +12,7 @@ export default function FadeIn({
   children,
   delay = 0,
   className = "",
-  threshold = 0.12,
+  threshold = 0.05,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -39,8 +39,8 @@ export default function FadeIn({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        transform: visible ? "translateY(0)" : "translateY(12px)",
+        transition: `opacity 0.4s ease ${delay}ms, transform 0.4s ease ${delay}ms`,
         willChange: "opacity, transform",
       }}
     >

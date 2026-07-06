@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import CreatorHero from "@/components/creator/CreatorHero";
 import CreatorWho from "@/components/creator/CreatorWho";
 import CreatorProcess from "@/components/creator/CreatorProcess";
+import CreatorFAQ from "@/components/creator/CreatorFAQ";
 import CreatorCTA from "@/components/creator/CreatorCTA";
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default function CreatorPage() {
         <CreatorHero />
 <CreatorWho />
         <CreatorProcess />
+        <CreatorFAQ />
         <CreatorCTA />
       </main>
       <Footer />
