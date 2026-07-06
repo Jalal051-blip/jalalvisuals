@@ -57,12 +57,12 @@ export default function CreatorHero() {
 
         {/* Højre — to videoer */}
         <FadeIn>
-          <div className="flex justify-center md:justify-end gap-6 items-start">
+          <div className="flex justify-center md:justify-end gap-4 items-start">
             {[
               { id: "w2N5wAXf3LU", label: "UGC" },
               { id: "-hpWdzlUHG4", label: "Professionel" },
             ].map((video, i) => (
-              <div key={i} className="flex flex-col items-center gap-3 shrink-0" style={{ width: "264px" }}>
+              <div key={i} className="flex flex-col items-center gap-3 shrink-0" style={{ width: "min(264px, 42vw)" }}>
                 <div
                   className="w-full"
                   style={{

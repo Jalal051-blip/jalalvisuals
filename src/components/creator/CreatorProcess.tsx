@@ -30,7 +30,7 @@ const trin = [
 
 export default function CreatorProcess() {
   return (
-    <section id="optagelsesdag" className="py-24 px-6" style={{ background: "#0d0f1e" }}>
+    <section id="optagelsesdag" className="py-24 px-6" style={{ background: "#080a14" }}>
       <div className="max-w-3xl mx-auto">
         <FadeIn>
           <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#DC2626" }}>

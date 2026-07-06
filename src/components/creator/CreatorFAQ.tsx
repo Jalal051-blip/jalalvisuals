@@ -54,7 +54,7 @@ export default function CreatorFAQ() {
   }
 
   return (
-    <section className="py-16 px-6" style={{ background: "#080a14" }}>
+    <section className="py-16 px-6" style={{ background: "#0d0f1e" }}>
       <div className="max-w-3xl mx-auto">
         <FadeIn>
           <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#DC2626" }}>

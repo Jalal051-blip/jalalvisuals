@@ -4,7 +4,7 @@ import FadeIn from "@/components/FadeIn";
 
 export default function CreatorCTA() {
   return (
-    <section id="kontakt-creator" className="py-24 px-6" style={{ background: "#0d0f1e" }}>
+    <section id="kontakt-creator" className="py-24 px-6" style={{ background: "#080a14" }}>
       <div className="max-w-2xl mx-auto text-center">
         <FadeIn>
           <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#DC2626" }}>
@@ -19,7 +19,7 @@ export default function CreatorCTA() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+4523906021"
+              href="tel:+4560535289"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-white font-semibold text-base transition-colors"
               style={{ background: "#DC2626" }}
               onMouseEnter={e => (e.currentTarget.style.background = "#b91c1c")}
@@ -31,7 +31,7 @@ export default function CreatorCTA() {
               Ring til os
             </a>
             <a
-              href="mailto:jalal@jalalvisuals.dk"
+              href="mailto:info@jalalvisuals.dk"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-slate-300 font-semibold text-base transition-colors"
               style={{ border: "1px solid rgba(255,255,255,0.15)" }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)")}

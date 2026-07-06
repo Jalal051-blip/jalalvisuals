@@ -44,12 +44,6 @@ export default function CreatorWho() {
           </p>
         </FadeIn>
 
-        {/* Kolonneoverskrifter */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2 px-1">
-          <p className="text-sm font-bold uppercase tracking-widest text-white">UGC</p>
-          <p className="text-sm font-bold uppercase tracking-widest" style={{ color: "#DC2626" }}>Professionel</p>
-        </div>
-
         <div className="flex flex-col gap-4">
           {forskelle.map((r, i) => (
             <FadeIn key={i}>
@@ -58,11 +52,17 @@ export default function CreatorWho() {
                 style={{ border: "1px solid rgba(255,255,255,0.07)" }}
               >
                 <div className="px-6 py-5" style={{ background: "#10131f" }}>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">{r.titel}</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">{r.titel}</p>
+                    <span className="text-xs font-bold uppercase tracking-widest text-slate-400 px-2 py-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.07)" }}>UGC</span>
+                  </div>
                   <p className="text-slate-400 text-sm leading-relaxed">{r.ugc}</p>
                 </div>
-                <div className="px-6 py-5" style={{ background: "#151829", borderLeft: "1px solid rgba(220,38,38,0.2)" }}>
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#DC2626" }}>{r.titel}</p>
+                <div className="px-6 py-5" style={{ background: "#151829", borderTop: "1px solid rgba(220,38,38,0.15)" }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">{r.titel}</p>
+                    <span className="text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full" style={{ background: "rgba(220,38,38,0.12)", color: "#DC2626" }}>Professionel</span>
+                  </div>
                   <p className="text-white text-sm leading-relaxed">{r.pro}</p>
                 </div>
               </div>

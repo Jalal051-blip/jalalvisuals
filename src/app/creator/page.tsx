@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CreatorHero from "@/components/creator/CreatorHero";
 import CreatorWho from "@/components/creator/CreatorWho";
+import CreatorTestimonial from "@/components/creator/CreatorTestimonial";
 import CreatorProcess from "@/components/creator/CreatorProcess";
 import CreatorFAQ from "@/components/creator/CreatorFAQ";
 import CreatorCTA from "@/components/creator/CreatorCTA";
@@ -18,6 +19,7 @@ export default function CreatorPage() {
       <main className="flex-1">
         <CreatorHero />
 <CreatorWho />
+        <CreatorTestimonial />
         <CreatorProcess />
         <CreatorFAQ />
         <CreatorCTA />
