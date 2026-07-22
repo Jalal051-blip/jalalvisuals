@@ -56,7 +56,7 @@ export default function Navbar() {
               </a>
             ))}
           </nav>
-          <a
+<a
             href="/#kontakt"
             className="inline-flex items-center px-5 py-2.5 rounded-lg bg-[#DC2626] hover:bg-[#b91c1c] text-white text-sm font-semibold transition-colors"
           >

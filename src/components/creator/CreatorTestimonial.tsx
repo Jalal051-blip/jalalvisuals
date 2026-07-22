@@ -41,7 +41,7 @@ export default function CreatorTestimonial() {
               >
                 <div style={{ position: "relative", paddingBottom: "177.78%", height: 0 }}>
                   <iframe
-                    src="https://www.youtube.com/embed/AZF_oK5xyyU?autoplay=1&mute=1&loop=1&playlist=AZF_oK5xyyU&controls=0&playsinline=1&rel=0&modestbranding=1"
+                    src="https://www.youtube.com/embed/BtqPkE7Jzgw?autoplay=1&mute=0&loop=1&playlist=BtqPkE7Jzgw&controls=1&playsinline=1&rel=0&modestbranding=1&cc_load_policy=0"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     style={{
