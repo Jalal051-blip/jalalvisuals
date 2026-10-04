@@ -134,72 +134,36 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ── Levende blob-gradient baggrund ── */}
+      {/* ── Video baggrund ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
-        {/* Blob 1 — stor rød, øverst til venstre */}
-        <div style={{
-          position: "absolute",
-          top: "-10%", left: "-5%",
-          width: "70vw", height: "70vw",
-          borderRadius: "43% 57% 61% 39% / 47% 53% 47% 53%",
-          background: "radial-gradient(circle at 40% 40%, rgba(220,38,38,0.75) 0%, rgba(180,20,20,0.4) 40%, transparent 70%)",
-          filter: "blur(70px)",
-          animation: "blob-1 10s ease-in-out infinite",
-          willChange: "transform",
-        }} />
-
-        {/* Blob 2 — mørk navy, øverst til højre */}
-        <div style={{
-          position: "absolute",
-          top: "-20%", right: "-10%",
-          width: "65vw", height: "65vw",
-          borderRadius: "61% 39% 43% 57% / 53% 47% 53% 47%",
-          background: "radial-gradient(circle at 60% 40%, rgba(45,52,120,0.9) 0%, rgba(30,34,64,0.7) 45%, transparent 70%)",
-          filter: "blur(80px)",
-          animation: "blob-2 13s ease-in-out infinite",
-          willChange: "transform",
-        }} />
-
-        {/* Blob 3 — dyb rød/crimson, midten-højre */}
-        <div style={{
-          position: "absolute",
-          top: "30%", right: "-15%",
-          width: "55vw", height: "55vw",
-          borderRadius: "50% 50% 40% 60% / 40% 60% 50% 50%",
-          background: "radial-gradient(circle at 50% 50%, rgba(185,28,28,0.65) 0%, rgba(220,38,38,0.3) 40%, transparent 70%)",
-          filter: "blur(65px)",
-          animation: "blob-3 9s ease-in-out infinite",
-          willChange: "transform",
-        }} />
-
-        {/* Blob 4 — navy/indigo, bunden til venstre */}
-        <div style={{
-          position: "absolute",
-          bottom: "-20%", left: "-10%",
-          width: "75vw", height: "60vw",
-          borderRadius: "57% 43% 39% 61% / 53% 47% 53% 47%",
-          background: "radial-gradient(circle at 40% 60%, rgba(30,34,80,0.85) 0%, rgba(20,24,60,0.6) 45%, transparent 70%)",
-          filter: "blur(90px)",
-          animation: "blob-4 15s ease-in-out infinite",
-          willChange: "transform",
-        }} />
-
-        {/* Blob 5 — lille lys rød accent i midten — skaber lysknude */}
-        <div style={{
-          position: "absolute",
-          top: "35%", left: "35%",
-          width: "30vw", height: "30vw",
-          borderRadius: "50%",
-          background: "radial-gradient(circle at 50% 50%, rgba(239,68,68,0.5) 0%, transparent 65%)",
-          filter: "blur(50px)",
-          animation: "blob-2 7s ease-in-out infinite reverse",
-          willChange: "transform",
-        }} />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        {/* Mørkt overlay så tekst er læsbar */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.55) 60%, rgba(8,10,20,0.9) 100%)",
+          }}
+        />
       </div>
 
       {/* Indhold */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 max-w-4xl mx-auto text-center" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)" }}>
         {/* Hoved-overskrift */}
         <h1 style={fadeStyle(0)} className="text-[2.8rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight mb-5">
           Videoer der kan mærkes på <span className="text-[#DC2626]">omsætningen.</span>
